@@ -5,4 +5,4 @@ argument(c).
 attacks(a,b).
 attacks(b,c).
 
-grounded(a) :- 
+admissible(Y) :- not(attacks(Y,Y)), (not(attacks(X,Y)); (attacks(Y,Z), X==Z)).
