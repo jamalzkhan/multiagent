@@ -1,15 +1,26 @@
+arg(a).
+arg(b).
+arg(c).
+arg(d).
+arg(e).
+arg(f).
+arg(g).
 
-argument(a).
-argument(b).
-argument(c).
-argument(d).
+att(b,a).
+att(c,b).
+att(d,c).
+att(e,d).
+att(f,g).
+att(g,a).
+att(g,f).
 
-attacks(a,a).
-attacks(a,b).
-attacks(b,a).
-attacks(c,d).
-attacks(d,c).
+admissible(Y) :- not(att(Y,Y)), (not(att(X,Y)); (att(Y,Z), X==Z)).
 
-admissible(Y) :- not(attacks(Y,Y)), (not(attacks(X,Y)); (attacks(Y,Z), X==Z)).
+%forall(X,Y) :- \+(X,\+Y).
 
-grounded(Z) :- argument(Z), forall((argument(X)), (\+(attacks(X,Z));(attacks(Y,X), Y\=Z, Y\=X, grounded(Y)))).
+one_no_att :- arg(X), not(att(_,X)).
+
+grounded(Z) :-	one_no_att, !, arg(Z), forall((arg(X)), (\+(att(X,Z)); (att(Y,X), Y\=Z, Y\=X, grounded(Y)))).
+grounded(Z) :-	Z = [].
+
+
