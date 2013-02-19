@@ -23,7 +23,7 @@
 
 % EDIT THE FOLLOWING:
 
-option(frameworkdir, '../data/').
+option(frameworkdir, './').
 
 % END OF EDITABLE
 
