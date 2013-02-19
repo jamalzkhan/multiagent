@@ -2,26 +2,17 @@
 
 myAsm(a).
 myAsm(b).
-myAsm(c).
-myAsm(d).
-myAsm(e).
-myAsm(f).
+contrary(a,p).
+myRule(p,[b]).
+myRule(p,[]).
 
-contrary(a,r).
-contrary(b,s).
-contrary(c,t).
-myRule(p,[a, r, d, e]).
-myRule(q,[f]).
-myRule(r,[b,c, q]).
-
-
-%Case for argument(a, [b, c, a])
-argument((C, [X])) :- myAsm(C), C == X.
+argument((C, X)) :- myAsm(C), X=[C].
 argument((C, [])) :- myRule(C,[]).
 argument((C, X)) :- myRule(C, LS), iterate(LS, X).
 
 iterate([], []).
-iterate([L|LS], [X|XS]) :- myAsm(L), myAsm(X), X==L, iterate(LS, XS).
+iterate([L|LS], [X|XS]) :- myAsm(L), X=L, iterate(LS, XS).
 iterate([L|LS], XS) :- myRule(L, YS), append(LS, YS, LS2), iterate(LS2, XS).
 
-
+attacks((CA,XA),(CB,XB)) :- argument((CA,XA)), argument((CB,XB)),
+	member(X, XB), contrary(X, CA).
