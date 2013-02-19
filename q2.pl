@@ -14,5 +14,6 @@ iterate([], []).
 iterate([L|LS], [X|XS]) :- myAsm(L), X=L, iterate(LS, XS).
 iterate([L|LS], XS) :- myRule(L, YS), append(LS, YS, LS2), iterate(LS2, XS).
 
-attacks((CA,XA),(CB,XB)) :- argument((CA,XA)), argument((CB,XB)),
+attacks((CA,XA),(CB,XB)) :-
+	argument((CA,XA)), argument((CB,XB)),
 	member(X, XB), contrary(X, CA).
